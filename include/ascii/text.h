@@ -22,6 +22,14 @@ public:
   std::string text() { return text_; }
 
   friend std::ostream &operator<<(std::ostream &os, const Text &val) {
+#ifdef ASCIICHART_PLAINTEXT_ONLY
+    if(ASCIICHART_PLAINTEXT_ONLY())
+    {
+        os << val.text_;
+        return os;
+    }
+#endif
+
     os << val.style_ << val.text_ << Decoration::From(Decoration::RESET);
     return os;
   }
